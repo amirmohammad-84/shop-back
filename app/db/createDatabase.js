@@ -11,7 +11,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
     else {        
         var salt = bcrypt.genSaltSync(10);
         
-        db.run(`CREATE TABLE users (
+        db.run(`CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name text,
                 is_admin INTEGER NOT NULL CHECK (is_admin IN (0, 1)),
@@ -31,7 +31,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
             }
         });  
 
-        db.run(`CREATE TABLE phone_verification  (
+        db.run(`CREATE TABLE IF NOT EXISTS phone_verification  (
                 id text UNIQUE,
                 phone text,             
                 code text UNIQUE,
@@ -46,7 +46,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
 
 
                     
-        db.run(`CREATE TABLE products (
+        db.run(`CREATE TABLE IF NOT EXISTS products (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title text,
                 category text,
